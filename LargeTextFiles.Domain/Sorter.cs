@@ -11,7 +11,7 @@ public class Sorter
     private readonly string _tmpDirPath = Path.Combine(Directory.GetCurrentDirectory(), "tmp");
     private int _tmpFileNumber;
 
-    public async Task Sort(string sourcePath, string targetPath, CancellationToken cancellationToken = default)
+    public async Task<string> Sort(string sourcePath, string targetPath, CancellationToken cancellationToken = default)
     {
         using var source = new StreamReader(sourcePath);
         await using var target = File.OpenWrite(targetPath);
@@ -50,6 +50,8 @@ public class Sorter
         {
             Directory.Delete(_tmpDirPath);
         }
+
+        return targetPath;
     }
 
     private async Task<IReadOnlyCollection<string>> SplitFile(

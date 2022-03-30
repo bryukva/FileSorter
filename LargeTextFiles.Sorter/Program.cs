@@ -4,7 +4,7 @@ using LargeTextFiles.Domain;
 Console.Write("File to sort: ");
 var path = Console.ReadLine();
 
-Console.Write("Sorted file name: ");
+Console.Write("Sorted file name (optional): ");
 var target = Console.ReadLine();
 
 var sorter = new Sorter();
@@ -21,13 +21,14 @@ if (!File.Exists(path))
 
 target = string.IsNullOrWhiteSpace(target) ? "sorted.txt" : target;
 
-Console.Write("Sorting started");
+Console.WriteLine("Sorting started");
 
 var currentProcess = Process.GetCurrentProcess();
 var stopwatch = new Stopwatch();
 stopwatch.Start();
-await sorter.Sort(path, target);
+var resultFile = await sorter.Sort(path, target);
 stopwatch.Stop();
 var totalBytesOfMemoryUsed = currentProcess.WorkingSet64;
 
+Console.WriteLine($"Sorted file: {resultFile}");
 Console.WriteLine($"{stopwatch.ElapsedMilliseconds / 1000d} s elapsed, {totalBytesOfMemoryUsed/1024d/1024d} Mb memory consumed");

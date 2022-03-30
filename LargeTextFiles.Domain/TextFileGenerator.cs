@@ -16,8 +16,7 @@ public class TextFileGenerator
     private static readonly Random Rnd = new();
     private static int _dupCount;
     private static int _count;
-        
-    //TODO: to appsettings
+    
     public TextFileGenerator(string textCorpusFilePath = @"words.txt")
     {
         var textCorpusFileContent = File.ReadAllText(textCorpusFilePath, Encoding.UTF8) ?? throw new FileLoadException("Could not load text corpus file");
